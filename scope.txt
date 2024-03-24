@@ -1,3 +1,0 @@
-src/HorseStore.huff/HorseStore.sol
-src/HorseStore.huff/HorseStoreYul.sol
-src/interfaces/ISimpleStorage.sol
