@@ -2,6 +2,7 @@
 #define function add(uint256, uint256) view returns(uint256)
 #define function sub(uint256, uint256) view returns(uint256)
 #define function multi(uint256, uint256) view returns(uint256)
+#define function div(uint256, uint256) view returns(uint256)
 
 /*Storage Slots*/
 
@@ -52,29 +53,51 @@
     
 }
 
+#define macro DIV_TWO_NUMBERS() = takes(0) returns(0){
+    0x04
+    calldataload
+    0x24
+    calldataload
+    div
+
+    0x00
+    mstore
+    0x20
+    0x00
+    return
+    
+}
+
 #define macro MAIN() = takes(0) returns(0) {
-    0x00  //pushes 0 on to stack 
-    calldataload  //loads call data on to stack
+    0x00  
+    calldataload  
     0xE0 //off set for next line
     shr //shifts bits from the call data load to only select first 4 bytes
 
-    //dup1 //duplicates first stack item
+    dup1 //duplicates first stack item
     __FUNC_SIG(add) //keccak256 of the function
     eq // returns 0 if they are equal
     addJump
     jumpi //jumps if true
 
 
+    dup1 __FUNC_SIG(sub) eq subJump jumpi
+
+    dup1 __FUNC_SIG(multi) eq multiJump jumpi
+
+    dup1 __FUNC_SIG(div) eq divJump jumpi
+
+
+
+
+
 
     addJump:
         ADD_TWO_NUMBERS() 
-
+    subJump:
+        SUB_TWO_NUMBERS()
+    multiJump:
+        MULTI_TWO_NUMBERS()
+    divJump:
+        DIV_TWO_NUMBERS()
 }
-
-/*TODO*/
-
-//Square
-//cube
-//double
-//triple
-//
