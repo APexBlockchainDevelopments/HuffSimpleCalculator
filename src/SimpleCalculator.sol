@@ -15,7 +15,7 @@ contract SimpleCalculator {
         return x * y;
     }
 
-    function divide(uint256 x, uint256 y) pure public returns(uint256){
+    function div(uint256 x, uint256 y) pure public returns(uint256){
         return x / y;
     }
 

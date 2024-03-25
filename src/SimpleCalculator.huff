@@ -23,10 +23,13 @@
     return
 }
 
+
+//0xb67d77c500000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000000078
 #define macro SUB_TWO_NUMBERS() = takes(0) returns(0){
-    0x04
-    calldataload
-    0x24
+    //revert if underflow?
+    0x24  //[0x04]
+    calldataload        //[call data - function sig]
+    0x04            //[0x24, calldata - function sig]
     calldataload
     sub
 
@@ -39,11 +42,11 @@
 }
 
 #define macro MULTI_TWO_NUMBERS() = takes(0) returns(0){
-    0x04
+    0x04  //[0x04]
+    calldataload        //[call data - function sig]
+    0x24            //[0x24, calldata - function sig]
     calldataload
-    0x24
-    calldataload
-    multi
+    mul
 
     0x00
     mstore
@@ -54,9 +57,9 @@
 }
 
 #define macro DIV_TWO_NUMBERS() = takes(0) returns(0){
-    0x04
-    calldataload
     0x24
+    calldataload
+    0x04
     calldataload
     div
 
