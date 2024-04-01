@@ -106,13 +106,15 @@
 //0x7a6ce2e1
 #define macro GET_MSG_SENDER() = takes(0) returns(0){
     caller // [msg.sender]
-    
-    0x00
-    mstore
-    0x20
-    0x00
+    0x00    //[0, msg.sender]
+    mstore  //[]
+    0x20    //[0x20]
+    0x00    //[0, 0x20]
     return
 }
+
+
+
 
 
 #define macro MAIN() = takes(0) returns(0) {
